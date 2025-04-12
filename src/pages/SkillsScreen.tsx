@@ -109,7 +109,7 @@ const SkillsScreen = ({ onNext }: SkillsScreenProps) => {
 
   return (
     <div
-      className="max-h-screen flex flex-col items-center justify-center relative p-4 overflow-hidden"
+      className="min-h-screen flex flex-col items-center justify-center relative p-4 overflow-hidden"
       style={{
         backgroundImage: `url(${bgimage})`,
         backgroundSize: "cover",
