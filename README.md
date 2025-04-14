@@ -88,7 +88,7 @@ Found a *glitch* or got an idea to make this portfolio *extra life* awesome? Fee
 
 ## 📜 License
 
-This project is licensed under the MIT License—free to *fork*, *mod*, or *remix* as you please!
+This project is licensed under the Apache License—free to *fork*, *mod*, or *remix* as you please!
 
 ## 🎉 Thanks for Visiting!
 
