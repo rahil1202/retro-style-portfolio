@@ -7,14 +7,15 @@ import bgimage from "../assets/images/background.jpg";
 
 interface ExperienceScreenProps {
   onNext: () => void;
+  onPrev: () => void;
 }
 
 const experiences = [
   {
     role: "Full Stack Developer",
     period: "May 2024 - Present",
-    company: "The One Technology,  Gujarat",
-    icon: <Zap className="text-yellow-400" size={24} />,
+    company: "The One Technology, Gujarat",
+    icon: <Zap className="text-yellow-400" size={20} />,
     projects: [
       {
         name: "Employee Management System",
@@ -43,7 +44,7 @@ const experiences = [
     role: "Full Stack Developer Intern",
     period: "Jan 2024 - Apr 2024",
     company: "Hire the Author, Bangalore, Karnataka",
-    icon: <Zap className="text-yellow-400" size={24} />,
+    icon: <Zap className="text-yellow-400" size={20} />,
     projects: [
       {
         name: "",
@@ -57,9 +58,25 @@ const experiences = [
       },
     ],
   },
+  {
+    role: "Frontend Developer Intern",
+    period: "May 2023 - July 2023",
+    company: "TatvaSoft, Gujarat",
+    icon: <Zap className="text-yellow-400" size={20} />,
+    projects: [
+      {
+        name: "E-commerce Website",
+        details: [
+          "Developed the frontend of an cart for e-commerce store using ReactJS, Tailwind CSS, and Material UI",
+          "Implemented custom hooks to streamline code  maintainability, led to reduction in duplicated code",          
+          "Utilized Tailwind CSS, reducing stylesheet by 10%, accelerating design 2x, ensuring 99% cross-device consistency",
+        ], 
+     },
+    ],
+  },
 ];
 
-const ExperienceScreen = ({ onNext }: ExperienceScreenProps) => {
+const ExperienceScreen = ({ onNext, onPrev }: ExperienceScreenProps) => {
   const [currentExperience, setCurrentExperience] = useState(0);
   const [showGlitch, setShowGlitch] = useState(false);
   const [glitchType, setGlitchType] = useState(0);
@@ -107,7 +124,7 @@ const ExperienceScreen = ({ onNext }: ExperienceScreenProps) => {
 
   return (
     <div
-      className="min-h-screen flex flex-col items-center justify-center relative p-4 z-10"
+      className="min-h-screen flex flex-col items-center justify-center relative p-4 overflow-hidden z-10"
       style={{
         backgroundImage: `url(${bgimage})`,
         backgroundSize: "cover",
@@ -126,22 +143,6 @@ const ExperienceScreen = ({ onNext }: ExperienceScreenProps) => {
           backgroundSize: "100% 4px",
         }}
       />
-
-      <motion.div
-        className="text-center z-10 translate-x-1/2 translate-y-1/2"
-        style={{ position: "absolute", top: "15px", left: "82%" }}
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ delay: 0.8, duration: 0.5, ease: "easeOut" }}
-      >
-        <PixelButton
-          onClick={onNext}
-          className="px-6 py-2 text-base md:text-sm hover:bg-retro-purple-dark/90 transition-colors bg-retro-purple-light text-white shadow-glow border-2 border-white/20"
-        >
-          <span className="mr-2 font-pixel tracking-wide">NEXT LEVEL</span>
-          <span className="inline-block animate-bounce-right">→</span>
-        </PixelButton>
-      </motion.div>
 
       {/* Glitch Effect */}
       {showGlitch && (
@@ -176,14 +177,44 @@ const ExperienceScreen = ({ onNext }: ExperienceScreenProps) => {
       <div className="absolute bottom-0 left-0 w-12 h-12 border-l-4 border-b-4 border-retro-purple-light opacity-70" />
       <div className="absolute bottom-0 right-0 w-12 h-12 border-r-4 border-b-4 border-retro-purple-light opacity-70" />
 
+      {/* Navigation Buttons */}
+      <div className="absolute top-16 left-4 right-4 md:top-4 flex justify-between items-center z-30">
+        <motion.div
+          initial={{ x: -20, opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          transition={{ delay: 0.8, duration: 0.5, ease: "easeOut" }}
+        >
+          <PixelButton
+            onClick={onPrev}
+            className="px-3 py-2 text-xs hover:bg-retro-purple-dark/90 transition-colors bg-retro-purple-light text-white shadow-glow border-2 border-white/20"
+          >
+            <span className="font-pixel tracking-wide">previous level</span>
+            <span className="ml-1 inline-block animate-bounce-left">←</span>
+          </PixelButton>
+        </motion.div>
+        <motion.div
+          initial={{ x: 20, opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          transition={{ delay: 0.8, duration: 0.5, ease: "easeOut" }}
+        >
+          <PixelButton
+            onClick={onNext}
+            className="px-3 py-2 text-xs hover:bg-retro-purple-dark/90 transition-colors bg-retro-purple-light text-white shadow-glow border-2 border-white/20"
+          >
+            <span className="font-pixel tracking-wide">next level</span>
+            <span className="ml-1 inline-block animate-bounce-right">→</span>
+          </PixelButton>
+        </motion.div>
+      </div>
+
       {/* Header */}
       <motion.div
-        className="absolute top-8 left-0 right-0 text-center"
+        className="absolute top-4 left-0 right-0 text-center"
         initial={{ y: -50, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ delay: 0.2, duration: 0.5, ease: "easeOut" }}
       >
-        <h2 className="text-2xl md:text-2xl font-bold text-retro-purple-light drop-shadow-glow inline-block px-4 py-0 border-b-4 border-retro-purple-light/50 font-pixel">
+        <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-retro-purple-light drop-shadow-glow inline-block px-4 py-1 border-b-4 border-retro-purple-light/50 font-pixel">
           EXPERIENCE LOG
         </h2>
       </motion.div>
@@ -191,30 +222,30 @@ const ExperienceScreen = ({ onNext }: ExperienceScreenProps) => {
       {/* Main Content */}
       <div className="w-full max-w-6xl flex flex-col items-center justify-center gap-6 mt-16 z-10">
         <div className="w-full flex-1">
-          <div className="flex items-center justify-between px-4 mb-4">
+          <div className="w-full flex items-center justify-between px-2 sm:px-4 mb-4">
             <motion.button
               onClick={prevExperience}
               whileHover={{ x: -4, scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
-              className="text-retro-purple-light p-2 bg-white/10 rounded-full backdrop-blur-sm border border-white/20 shadow-glow"
+              className="text-retro-purple-light p-1 sm:p-2 bg-white/10 rounded-full backdrop-blur-sm border border-white/20 shadow-glow"
             >
-              <ArrowLeftIcon size={20} />
+              <ArrowLeftIcon size={16} />
             </motion.button>
 
             <AnimatePresence mode="wait">
               <motion.div
                 key={currentExperience}
-                className="flex items-center gap-3"
+                className="flex items-center gap-2 sm:gap-3"
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -10 }}
                 transition={{ duration: 0.3 }}
               >
                 {experiences[currentExperience].icon}
-                <h3 className="text-xl md:text-2xl font-bold text-white drop-shadow-glow">
+                <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-white drop-shadow-glow font-pixel">
                   {experiences[currentExperience].role}
                 </h3>
-                <span className="text-xs bg-white/20 px-2 py-1 rounded-md text-white/80 font-mono">
+                <span className="text-xs bg-white/20 px-1 sm:px-2 py-1 rounded-md text-white/80 font-mono">
                   {currentExperience + 1}/{experiences.length}
                 </span>
               </motion.div>
@@ -224,9 +255,9 @@ const ExperienceScreen = ({ onNext }: ExperienceScreenProps) => {
               onClick={nextExperience}
               whileHover={{ x: 4, scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
-              className="text-retro-purple-light p-2 bg-white/10 rounded-full backdrop-blur-sm border border-white/20 shadow-glow"
+              className="text-retro-purple-light p-1 sm:p-2 bg-white/10 rounded-full backdrop-blur-sm border border-white/20 shadow-glow"
             >
-              <ArrowRightIcon size={20} />
+              <ArrowRightIcon size={16} />
             </motion.button>
           </div>
 
@@ -235,9 +266,9 @@ const ExperienceScreen = ({ onNext }: ExperienceScreenProps) => {
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.3, duration: 0.5 }}
           >
-            <PixelCard className="w-full bg-white/90 backdrop-blur-sm p-6 md:p-8 rounded-md shadow-glow border-2 border-retro-purple-light/40">
+            <PixelCard className="w-full bg-white/90 backdrop-blur-sm p-4 sm:p-6 md:p-8 rounded-md shadow-glow border-2 border-retro-purple-light/40">
               <div
-                className="max-h-[60vh] overflow-y-auto pr-4"
+                className="max-h-[50vh] sm:max-h-[60vh] overflow-y-auto pr-2 sm:pr-4"
                 style={{
                   scrollbarWidth: "thin",
                   scrollbarColor: "#A78BFA #EDE9FE",
@@ -251,32 +282,34 @@ const ExperienceScreen = ({ onNext }: ExperienceScreenProps) => {
                     exit={{ opacity: 0, x: 20 }}
                     transition={{ duration: 0.3 }}
                   >
-                    <div className="flex flex-col gap-6">
+                    <div className="flex flex-col gap-4 sm:gap-6">
                       <div>
-                        <p className="text-sm md:text-base text-retro-purple-light font-mono mb-2">
+                        <p className="text-xs sm:text-sm md:text-base text-retro-purple-light font-mono mb-1 sm:mb-2">
                           {experiences[currentExperience].period}
                         </p>
-                        <p className="text-sm md:text-base text-gray-800 font-pixel">
+                        <p className="text-xs sm:text-sm md:text-base text-gray-800 font-pixel">
                           {experiences[currentExperience].company}
                         </p>
                       </div>
                       {experiences[currentExperience].projects.map((project, index) => (
-                        <div key={index} className="mt-4">
-                          <h4 className="text-lg md:text-xl text-retro-purple-dark font-bold font-pixel mb-3">
-                            {project.name}
-                          </h4>
-                          <ul className="list-disc pl-5 space-y-2">
+                        <div key={index} className="mt-3 sm:mt-4">
+                          {project.name && (
+                            <h4 className="text-base sm:text-lg md:text-xl text-retro-purple-dark font-bold font-pixel mb-2 sm:mb-3">
+                              {project.name}
+                            </h4>
+                          )}
+                          <ul className="list-disc pl-5 space-y-1 sm:space-y-2">
                             {project.details.map((detail, detailIndex) => (
                               <li
                                 key={detailIndex}
-                                className="text-sm md:text-base text-gray-800"
+                                className="text-xs sm:text-sm md:text-base text-gray-800"
                               >
                                 {detail}
                               </li>
                             ))}
                           </ul>
                         </div>
-                      ))}                      
+                      ))}
                     </div>
                   </motion.div>
                 </AnimatePresence>
@@ -286,7 +319,6 @@ const ExperienceScreen = ({ onNext }: ExperienceScreenProps) => {
         </div>
       </div>
 
-   
       {/* Floating Pixels */}
       <motion.div
         animate={{

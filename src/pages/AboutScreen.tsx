@@ -5,12 +5,15 @@ import SpeechBubble from "../components/SpeechBubble";
 import bgimage from "../assets/images/background.jpg";
 import profileImage from "../assets/images/profileImage.jpeg";
 import { Zap } from "lucide-react";
+import { GitHubLogoIcon, LinkedInLogoIcon, TwitterLogoIcon } from "@radix-ui/react-icons";
+
 
 interface AboutScreenProps {
   onNext: () => void;
+  onPrev: () => void;
 }
 
-const AboutScreen = ({ onNext }: AboutScreenProps) => {
+const AboutScreen = ({ onNext, onPrev }: AboutScreenProps) => {
   const [showGlitch, setShowGlitch] = useState(false);
   const [glitchType, setGlitchType] = useState(0);
 
@@ -61,29 +64,13 @@ const AboutScreen = ({ onNext }: AboutScreenProps) => {
       <div className="absolute inset-0 bg-black opacity-50 z-0" />
       <div className="absolute inset-0 bg-gradient-to-b from-transparent to-purple-900/30 z-0" />
       <div
-        className="absolute inset-0 overflow-hidden z-0 pointer-events-none opacity-10"
+        className="absolute inset-0 z-0 pointer-events-none opacity-10"
         style={{
           backgroundImage:
             "linear-gradient(transparent 0%, rgba(255, 255, 255, 0.05) 50%, transparent 50%, transparent 100%)",
           backgroundSize: "100% 4px",
         }}
       />
-      {/* Next Level Button */}
-      <motion.div
-        className="text-center z-10 translate-x-1/2 translate-y-1/2"
-        style={{ position: "absolute", top: "15px", left: "82%" }}
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ delay: 0.8, duration: 0.5, ease: "easeOut" }}
-      >
-        <PixelButton
-          onClick={onNext}
-          className="px-6 py-2 text-base md:text-sm hover:bg-retro-purple-dark/90 transition-colors bg-retro-purple-light text-white shadow-glow border-2 border-white/20"
-        >
-          <span className="mr-2 font-pixel tracking-wide">NEXT LEVEL</span>
-          <span className="inline-block animate-bounce-right">→</span>
-        </PixelButton>
-      </motion.div>
 
       {/* Glitch Effect */}
       {showGlitch && (
@@ -120,15 +107,45 @@ const AboutScreen = ({ onNext }: AboutScreenProps) => {
 
       {/* Header */}
       <motion.div
-        className="absolute top-8 left-0 right-0 text-center"
+        className="absolute top-4 left-0 right-0 text-center"
         initial={{ y: -50, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ delay: 0.2, duration: 0.5, ease: "easeOut" }}
       >
-        <h2 className="text-2xl md:text-4xl font-bold text-retro-purple-light drop-shadow-glow inline-block px-4 py-1 border-b-4 border-retro-purple-light/50 font-pixel">
+        <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-retro-purple-light drop-shadow-glow inline-block px-4 py-1 border-b-4 border-retro-purple-light/50 font-pixel">
           IT'S RAHIL VAHORA
         </h2>
       </motion.div>
+
+      {/* Navigation Buttons */}
+      <div className="absolute top-16 left-4 right-4 md:top-4 flex justify-between items-center z-30">
+        <motion.div
+          initial={{ x: -20, opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          transition={{ delay: 0.8, duration: 0.5, ease: "easeOut" }}
+        >
+          <PixelButton
+            onClick={onPrev}
+            className="px-3 py-2 text-xs hover:bg-retro-purple-dark/90 transition-colors bg-retro-purple-light text-white shadow-glow border-2 border-white/20"
+          >
+            <span className="font-pixel tracking-wide">previous level</span>
+            <span className="ml-1 inline-block animate-bounce-left">←</span>
+          </PixelButton>
+        </motion.div>
+        <motion.div
+          initial={{ x: 20, opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          transition={{ delay: 0.8, duration: 0.5, ease: "easeOut" }}
+        >
+          <PixelButton
+            onClick={onNext}
+            className="px-3 py-2 text-xs hover:bg-retro-purple-dark/90 transition-colors bg-retro-purple-light text-white shadow-glow border-2 border-white/20"
+          >
+            <span className="font-pixel tracking-wide">next level</span>
+            <span className="ml-1 inline-block animate-bounce-right">→</span>
+          </PixelButton>
+        </motion.div>
+      </div>
 
       {/* Main Content */}
       <div className="w-full max-w-4xl flex flex-col md:flex-row items-center gap-6 mt-16 z-10">
@@ -136,7 +153,7 @@ const AboutScreen = ({ onNext }: AboutScreenProps) => {
           initial={{ x: -50, opacity: 0, rotate: -10 }}
           animate={{ x: 0, opacity: 1, rotate: 0 }}
           transition={{ delay: 0.3, duration: 0.5, ease: "easeOut" }}
-          className="relative flex items-center justify-center"
+          className="flex items-center justify-center w-full md:w-auto"
         >
           <motion.a
             href="https://github.com/rahil1202"
@@ -147,7 +164,7 @@ const AboutScreen = ({ onNext }: AboutScreenProps) => {
             transition={{ delay: 0.4, duration: 0.7, type: "spring", stiffness: 100 }}
             whileHover={{ scale: 1.1, rotate: 5, boxShadow: "0px 8px 16px rgba(0, 0, 0, 0.3)" }}
             whileTap={{ scale: 0.95 }}
-            className="relative w-28 h-28 md:w-36 md:h-36 rounded-full overflow-hidden border-4 border-retro-purple-light bg-retro-purple-dark/20 shadow-glow"
+            className="relative w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 rounded-full overflow-hidden border-4 border-retro-purple-light bg-retro-purple-dark/20 shadow-glow"
           >
             <img
               src={profileImage}
@@ -158,12 +175,12 @@ const AboutScreen = ({ onNext }: AboutScreenProps) => {
         </motion.div>
 
         <motion.div
-          className="flex-1"
+          className="flex-1 w-full"
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.5, duration: 0.5, ease: "easeOut" }}
         >
-          <SpeechBubble className="w-full bg-white/90 backdrop-blur-sm p-6 md:p-8 rounded-md shadow-glow border-2 border-retro-purple-light/40">
+          <SpeechBubble className="w-full bg-white/90 backdrop-blur-sm p-4 sm:p-6 md:p-8 rounded-md shadow-glow border-2 border-retro-purple-light/40">
             <AnimatePresence mode="wait">
               <motion.div
                 initial={{ opacity: 0, x: -20 }}
@@ -172,16 +189,16 @@ const AboutScreen = ({ onNext }: AboutScreenProps) => {
                 transition={{ duration: 0.3 }}
               >
                 <div className="flex flex-col gap-4">
-                  <div className="flex items-center gap-3 mb-4">
-                    <Zap className="text-yellow-400" size={24} />
-                    <h3 className="text-xl md:text-2xl text-retro-purple-dark font-bold font-pixel">
+                  <div className="flex items-center gap-3 mb-3">
+                    <Zap className="text-yellow-400" size={20} />
+                    <h3 className="text-lg sm:text-xl md:text-2xl text-retro-purple-dark font-bold font-pixel">
                       Rahil Vahora
                     </h3>
                   </div>
-                  <p className="text-sm md:text-base text-retro-purple-light italic mb-3 font-mono">
+                  <p className="text-xs sm:text-sm md:text-base text-retro-purple-light italic mb-2 font-mono">
                     "Stacking code & chaos, one bug at a time!"
                   </p>
-                  <p className="text-sm md:text-base text-gray-800 leading-relaxed">
+                  <p className="text-xs sm:text-sm md:text-base text-gray-800 leading-relaxed">
                     I am a FullStack Engineer with 1+ year of experience, hailing from somewhere in Gujarat, India currently crafting full-stack rollercoasters to elevate web experiences.
                   </p>
                 </div>
@@ -191,8 +208,39 @@ const AboutScreen = ({ onNext }: AboutScreenProps) => {
         </motion.div>
       </div>
 
-      
+       {/* Footer with social media links  */}
 
+      <motion.div
+              className="absolute bottom-8 left-0 right-0"
+              initial={{ y: 50, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ delay: 0.6, duration: 0.5 }}
+            >
+              <p className="text-center mb-4 text-sm text-white font-bold drop-shadow-glow">FOLLOW ME AT:</p>
+              <div className="flex justify-center gap-6">
+                <motion.a
+                  href="https://github.com/rahil1202"
+                  whileHover={{ y: -2, scale: 1.1 }}
+                  className="p-2 border-2 border-white bg-black bg-opacity-30 rounded"
+                >
+                  <GitHubLogoIcon className="h-6 w-6 text-white" />
+                </motion.a>
+                <motion.a
+                  href="https://linkedin.com/in/rahil-vahora"
+                  whileHover={{ y: -2, scale: 1.1 }}
+                  className="p-2 border-2 border-white bg-black bg-opacity-30 rounded"
+                >
+                  <LinkedInLogoIcon className="h-6 w-6 text-white" />
+                </motion.a>
+                <motion.a
+                  href="https://x.com/Rahil_Vahora12"
+                  whileHover={{ y: -2, scale: 1.1 }}
+                  className="p-2 border-2 border-white bg-black bg-opacity-30 rounded"
+                >
+                  <TwitterLogoIcon className="h-6 w-6 text-white" />
+                </motion.a>
+              </div>
+            </motion.div>
       {/* Floating Pixels */}
       <motion.div
         animate={{

@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { AnimatePresence } from 'framer-motion';
 import LoadingScreen from '../components/LoadingScreen';
@@ -23,53 +22,63 @@ type GameState =
   | 'projects'
   | 'completion';
 
+const screenFlow: GameState[] = [
+  'welcome',
+  'level1-transition',
+  'about',
+  'level2-transition',
+  'skills',
+  'level3-transition',
+  'experience',
+  'level4-transition',
+  'projects',
+  'completion',
+];
+
 const Index = () => {
   const [gameState, setGameState] = useState<GameState>('loading');
-  
+  const [direction, setDirection] = useState<'forward' | 'backward'>('forward');
+
+  const goToState = (state: GameState, dir: 'forward' | 'backward') => {
+    setDirection(dir);
+    setGameState(state);
+  };
+
   const handleLoadingComplete = () => {
-    setGameState('welcome');
+    goToState('welcome', 'forward');
   };
-  
+
   const handleStartGame = () => {
-    setGameState('level1-transition');
+    goToState('level1-transition', 'forward');
   };
-  
-  const handleLevel1TransitionComplete = () => {
-    setGameState('about');
-  };
-  
+
   const handleAboutComplete = () => {
-    setGameState('level2-transition');
+    goToState('level2-transition', 'forward');
   };
-  
-  const handleLevel2TransitionComplete = () => {
-    setGameState('skills');
-  };
-  
+
   const handleSkillsComplete = () => {
-    setGameState('level3-transition');
-  };
-  
-  const handleLevel3TransitionComplete = () => {
-    setGameState('experience');
+    goToState('level3-transition', 'forward');
   };
 
   const handleExperienceComplete = () => {
-    setGameState('level4-transition');
+    goToState('level4-transition', 'forward');
   };
 
-  const handleLevel4TransitionComplete = () => {
-    setGameState('projects');
-  };
-    
   const handleProjectsComplete = () => {
-    setGameState('completion');
+    goToState('completion', 'forward');
   };
-                                                                  
+
   const handleRestart = () => {
-    setGameState('welcome');
+    goToState('welcome', 'forward');
   };
-  
+
+  const handlePrev = () => {
+    const index = screenFlow.indexOf(gameState);
+    if (index > 0) {
+      goToState(screenFlow[index - 2], 'backward');
+    }
+  };
+
   return (
     <div className="w-full h-screen overflow-hidden">
       <AnimatePresence mode="wait">
@@ -77,61 +86,64 @@ const Index = () => {
           <LoadingScreen onLoadingComplete={handleLoadingComplete} />
         )}
       </AnimatePresence>
-      
+
       <AnimatePresence mode="wait">
         {gameState === 'welcome' && (
           <WelcomeScreen onStart={handleStartGame} />
         )}
-        
+
         {gameState === 'level1-transition' && (
-          <LevelTransition 
-            level={1} 
-            levelName="ABOUT ME" 
-            onTransitionComplete={handleLevel1TransitionComplete} 
+          <LevelTransition
+            level={1}
+            levelName="ABOUT ME"
+            direction={direction}
+            onTransitionComplete={() => goToState('about', direction)}
           />
         )}
-        
+
         {gameState === 'about' && (
-          <AboutScreen onNext={handleAboutComplete} />
+          <AboutScreen onNext={handleAboutComplete} onPrev={handlePrev} />
         )}
-        
+
         {gameState === 'level2-transition' && (
-          <LevelTransition 
-            level={2} 
-            levelName="EXPLORE MY SKILLS" 
-            onTransitionComplete={handleLevel2TransitionComplete} 
+          <LevelTransition
+            level={2}
+            levelName="EXPLORE MY SKILLS"
+            direction={direction}
+            onTransitionComplete={() => goToState('skills', direction)}
           />
         )}
-        
+
         {gameState === 'skills' && (
-          <SkillsScreen onNext={handleSkillsComplete} />
+          <SkillsScreen onNext={handleSkillsComplete} onPrev={handlePrev} />
         )}
-        
+
         {gameState === 'level3-transition' && (
-          <LevelTransition 
-            level={3} 
-            levelName="EXPERIENCE LOGS" 
-            onTransitionComplete={handleLevel3TransitionComplete} 
+          <LevelTransition
+            level={3}
+            levelName="EXPERIENCE LOGS"
+            direction={direction}
+            onTransitionComplete={() => goToState('experience', direction)}
           />
         )}
-        
+
         {gameState === 'experience' && (
-          <ExperienceScreen onNext={handleExperienceComplete} />
+          <ExperienceScreen onNext={handleExperienceComplete} onPrev={handlePrev} />
         )}
 
         {gameState === 'level4-transition' && (
-          <LevelTransition 
+          <LevelTransition
             level={4}
             levelName="PROJECTS"
-            onTransitionComplete={handleLevel4TransitionComplete}
+            direction={direction}
+            onTransitionComplete={() => goToState('projects', direction)}
           />
-
         )}
 
         {gameState === 'projects' && (
-          <ProjectScreen onNext={handleProjectsComplete} />
+          <ProjectScreen onNext={handleProjectsComplete} onPrev={handlePrev} />
         )}
-        
+
         {gameState === 'completion' && (
           <CompletionScreen onRestart={handleRestart} />
         )}
