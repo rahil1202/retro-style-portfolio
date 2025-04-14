@@ -36,8 +36,8 @@ This project is powered by a *stack-tacular* lineup of modern tools, carefully c
 
 ## 🔗 Links
 
-- **GitHub**: [https://github.com/rahil1202/retro-style=portfolio](https://github.com/rahil1202/retro-style=portfolio) (Replace with your actual GitHub link!)
-- **Live Preview**: [rahil-vahora.vercel.app](https://rahil-vahora.vercel.app) (Replace with your actual deployment link!)
+- **GitHub**: [https://github.com/rahil1202/retro-style=portfolio](https://github.com/rahil1202/retro-style=portfolio)
+- **Live Preview**: [rahil-vahora.vercel.app](https://rahil-vahora.vercel.app)
 - **Email**: Got questions? Ping me at `rahilisvahora@example.com` for a *byte-sized* chat.
 
 ## 🕹️ How to Run This Locally
