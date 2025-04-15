@@ -55,7 +55,7 @@ const LoadingScreen = ({ onLoadingComplete }: LoadingScreenProps) => {
   useEffect(() => {
     const timer = setTimeout(() => {
       onLoadingComplete();
-    }, 3000);
+    }, 2000);
     
     const interval = setInterval(() => {
       setLoadingProgress(prev => {

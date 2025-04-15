@@ -191,12 +191,12 @@ const CompletionScreen = ({ onRestart }: CompletionScreenProps) => {
     }
   };
 
-  const confettiParticles = Array.from({ length: 20 }).map((_, i) => ({
+  const confettiParticles = Array.from({ length: 30 }).map((_, i) => ({
     id: i,
-    x: Math.random() * 100,
+    x: Math.random() * 350,
     y: -10 - Math.random() * 20,
     size: Math.random() * 4 + 4,
-    color: ["#A78BFA", "#FBBF24", "#4ADE80", "#F472B6"][
+    color: ["#A78BFA", "#FBBF24", "#4ADE80", "#F472B6", "#EF4444", "#EF7744"][
       Math.floor(Math.random() * 4)
     ],
     delay: Math.random() * 2,
@@ -262,7 +262,7 @@ const CompletionScreen = ({ onRestart }: CompletionScreenProps) => {
           confettiParticles.map((particle) => (
             <motion.div
               key={particle.id}
-              className="absolute"
+              className="absolute z-40"
               style={{
                 left: `${particle.x}%`,
                 width: particle.size,
