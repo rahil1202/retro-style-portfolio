@@ -233,7 +233,7 @@ const AboutScreen = ({ onNext, onPrev }: AboutScreenProps) => {
                   <LinkedInLogoIcon className="h-6 w-6 text-white" />
                 </motion.a>
                 <motion.a
-                  href="https://x.com/Rahil_Vahora12"
+                  href="https://x.com/rahil1202"
                   whileHover={{ y: -2, scale: 1.1 }}
                   className="p-2 border-2 border-white bg-black bg-opacity-30 rounded"
                 >
